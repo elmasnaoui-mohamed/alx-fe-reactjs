@@ -1,12 +1,15 @@
-import React from 'react';
-import UserInfo from './UserInfo';
-import UserContext from './UserContext';
+import React, { useContext } from 'react';
+import UserContext from '../UserContext'; // Adjust the path if necessary
 
 function UserProfile() {
-  const userData = { name: "Jane Doe", email: "jane.doe@example.com" };
-  return <UserContext.Provider value={userData}>
-            <UserInfo />
-          </UserContext.Provider>;
+  const userData = useContext(UserContext);
+
+  return (
+    <div>
+      <p>Name: {userData.name}</p>
+      <p>Email: {userData.email}</p>
+    </div>
+  );
 }
 
 export default UserProfile;
