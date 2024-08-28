@@ -1,4 +1,3 @@
-// src/__tests__/TodoList.test.js
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
@@ -14,7 +13,9 @@ test('renders TodoList with initial todos', () => {
 // Test adding a new todo
 test('allows users to add a new todo', () => {
   render(<TodoList />);
-  fireEvent.change(screen.getByPlaceholderText('Add a new todo'), { target: { value: 'New Todo' } });
+  fireEvent.change(screen.getByPlaceholderText('Add a new todo'), {
+    target: { value: 'New Todo' },
+  });
   fireEvent.click(screen.getByText('Add Todo'));
   expect(screen.getByText('New Todo')).toBeInTheDocument();
 });
