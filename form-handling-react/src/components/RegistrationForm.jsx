@@ -28,7 +28,6 @@ const RegistrationForm = () => {
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
     } else {
-      // Simulate API call
       console.log('Form submitted successfully', formData);
     }
   };
