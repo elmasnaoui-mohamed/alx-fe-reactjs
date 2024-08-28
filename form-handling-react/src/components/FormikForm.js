@@ -16,7 +16,6 @@ const FormikForm = () => {
   });
 
   const onSubmit = (values) => {
-    // Simulate API call
     console.log('Form data', values);
   };
 
