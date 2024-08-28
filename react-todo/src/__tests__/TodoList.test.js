@@ -26,18 +26,21 @@ describe('TodoList Component', () => {
     render(<TodoList />);
     const todoItem = screen.getByText('Learn React');
 
+    // Simulate click to toggle the todo to completed
     fireEvent.click(todoItem);
     expect(todoItem).toHaveStyle('text-decoration: line-through');
 
+    // Simulate click to toggle it back to not completed
     fireEvent.click(todoItem);
     expect(todoItem).not.toHaveStyle('text-decoration: line-through');
   });
 
   test('deletes a todo', () => {
     render(<TodoList />);
-    const deleteButton = screen.getAllByText('Delete')[0];
+    const deleteButtons = screen.getAllByText('Delete');
 
-    fireEvent.click(deleteButton);
+    // Click the first delete button to remove the first todo
+    fireEvent.click(deleteButtons[0]);
     expect(screen.queryByText('Learn React')).not.toBeInTheDocument();
   });
 });
