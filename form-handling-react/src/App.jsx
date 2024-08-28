@@ -1,6 +1,6 @@
 import React from 'react';
 import RegistrationForm from './components/RegistrationForm.jsx';
-import FormikForm from './components/formikForm.jsx'; 
+import formikForm from './components/formikForm.js'; 
 
 const App = () => {
   return (
@@ -9,7 +9,7 @@ const App = () => {
       <h2>Controlled Components</h2>
       <RegistrationForm />
       <h2>Formik Form</h2>
-      <FormikForm />
+      <formikForm />
     </div>
   );
 };
