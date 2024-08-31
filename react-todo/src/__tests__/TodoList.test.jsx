@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, act } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import TodoList from '../components/TodoList';
 
@@ -15,8 +15,10 @@ describe('TodoList Component', () => {
     const input = screen.getByPlaceholderText('Add a new task');
     const button = screen.getByText('Add Task');
 
-    fireEvent.change(input, { target: { value: 'Test Task' } });
-    fireEvent.click(button);
+    act(() => {
+      fireEvent.change(input, { target: { value: 'Test Task' } });
+      fireEvent.click(button);
+    });
 
     expect(screen.getByText('Test Task')).toBeInTheDocument();
   });
@@ -26,11 +28,15 @@ describe('TodoList Component', () => {
     const input = screen.getByPlaceholderText('Add a new task');
     const button = screen.getByText('Add Task');
 
-    fireEvent.change(input, { target: { value: 'Task to Delete' } });
-    fireEvent.click(button);
+    act(() => {
+      fireEvent.change(input, { target: { value: 'Task to Delete' } });
+      fireEvent.click(button);
+    });
 
     const deleteButton = screen.getByText('Delete');
-    fireEvent.click(deleteButton);
+    act(() => {
+      fireEvent.click(deleteButton);
+    });
 
     expect(screen.queryByText('Task to Delete')).toBeNull();
   });
@@ -40,15 +46,22 @@ describe('TodoList Component', () => {
     const input = screen.getByPlaceholderText('Add a new task');
     const button = screen.getByText('Add Task');
 
-    fireEvent.change(input, { target: { value: 'Task to Complete' } });
-    fireEvent.click(button);
+    act(() => {
+      fireEvent.change(input, { target: { value: 'Task to Complete' } });
+      fireEvent.click(button);
+    });
 
     const task = screen.getByText('Task to Complete');
-    fireEvent.click(task);
+    act(() => {
+      fireEvent.click(task);
+    });
 
     expect(task).toHaveStyle('text-decoration: line-through');
 
-    fireEvent.click(task);
+    act(() => {
+      fireEvent.click(task);
+    });
+
     expect(task).not.toHaveStyle('text-decoration: line-through');
   });
 });
