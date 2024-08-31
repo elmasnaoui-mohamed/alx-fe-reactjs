@@ -1,67 +1,24 @@
 import React from 'react';
-import { render, screen, fireEvent, act } from '@testing-library/react';
-import '@testing-library/jest-dom/extend-expect';
-import TodoList from '../components/TodoList'; // Adjust path if necessary
+import { render, screen, fireEvent } from '@testing-library/react';
+import '@testing-library/jest-dom'; // Optional: Provides additional matchers for assertions
+import TodoList from '../components/TodoList';
 
 describe('TodoList Component', () => {
-  test('renders input and button', () => {
+  test('renders the TodoList component correctly', () => {
     render(<TodoList />);
-    expect(screen.getByPlaceholderText('Add a new task')).toBeInTheDocument();
-    expect(screen.getByText('Add Task')).toBeInTheDocument();
+    const headingElement = screen.getByText(/Todo List/i);
+    expect(headingElement).toBeInTheDocument();
   });
 
-  test('adds a task when the add button is clicked', () => {
+  test('adds a new todo item', () => {
     render(<TodoList />);
-    const input = screen.getByPlaceholderText('Add a new task');
-    const button = screen.getByText('Add Task');
+    const inputElement = screen.getByPlaceholderText(/Add todo/i);
+    const buttonElement = screen.getByText(/Add/i);
 
-    act(() => {
-      fireEvent.change(input, { target: { value: 'Test Task' } });
-      fireEvent.click(button);
-    });
+    fireEvent.change(inputElement, { target: { value: 'New Todo' } });
+    fireEvent.click(buttonElement);
 
-    expect(screen.getByText('Test Task')).toBeInTheDocument();
-  });
-
-  test('deletes a task when the delete button is clicked', () => {
-    render(<TodoList />);
-    const input = screen.getByPlaceholderText('Add a new task');
-    const button = screen.getByText('Add Task');
-
-    act(() => {
-      fireEvent.change(input, { target: { value: 'Task to Delete' } });
-      fireEvent.click(button);
-    });
-
-    const deleteButton = screen.getByText('Delete');
-    act(() => {
-      fireEvent.click(deleteButton);
-    });
-
-    expect(screen.queryByText('Task to Delete')).toBeNull();
-  });
-
-  test('toggles task completion', () => {
-    render(<TodoList />);
-    const input = screen.getByPlaceholderText('Add a new task');
-    const button = screen.getByText('Add Task');
-
-    act(() => {
-      fireEvent.change(input, { target: { value: 'Task to Complete' } });
-      fireEvent.click(button);
-    });
-
-    const task = screen.getByText('Task to Complete');
-    act(() => {
-      fireEvent.click(task);
-    });
-
-    expect(task).toHaveStyle('text-decoration: line-through');
-
-    act(() => {
-      fireEvent.click(task);
-    });
-
-    expect(task).not.toHaveStyle('text-decoration: line-through');
+    const newItem = screen.getByText('New Todo');
+    expect(newItem).toBeInTheDocument();
   });
 });

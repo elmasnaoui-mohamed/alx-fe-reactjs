@@ -1,48 +1,29 @@
 import React, { useState } from 'react';
 
-const TodoList = () => {
-  const [tasks, setTasks] = useState([]);
-  const [newTask, setNewTask] = useState('');
+const TodoList: React.FC = () => {
+  const [todos, setTodos] = useState<string[]>([]);
+  const [inputValue, setInputValue] = useState<string>('');
 
-  const addTask = () => {
-    if (newTask.trim() !== '') {
-      setTasks([...tasks, { text: newTask, completed: false }]);
-      setNewTask('');
+  const handleAddTodo = () => {
+    if (inputValue.trim()) {
+      setTodos([...todos, inputValue]);
+      setInputValue('');
     }
-  };
-
-  const deleteTask = (index) => {
-    const updatedTasks = tasks.filter((_, i) => i !== index);
-    setTasks(updatedTasks);
-  };
-
-  const toggleCompletion = (index) => {
-    const updatedTasks = tasks.map((task, i) =>
-      i === index ? { ...task, completed: !task.completed } : task
-    );
-    setTasks(updatedTasks);
   };
 
   return (
     <div>
+      <h1>Todo List</h1>
       <input
         type="text"
-        value={newTask}
-        onChange={(e) => setNewTask(e.target.value)}
-        placeholder="Add a new task"
+        placeholder="Add todo"
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
       />
-      <button onClick={addTask}>Add Task</button>
+      <button onClick={handleAddTodo}>Add</button>
       <ul>
-        {tasks.map((task, index) => (
-          <li key={index}>
-            <span
-              style={{ textDecoration: task.completed ? 'line-through' : 'none' }}
-              onClick={() => toggleCompletion(index)}
-            >
-              {task.text}
-            </span>
-            <button onClick={() => deleteTask(index)}>Delete</button>
-          </li>
+        {todos.map((todo, index) => (
+          <li key={index}>{todo}</li>
         ))}
       </ul>
     </div>
