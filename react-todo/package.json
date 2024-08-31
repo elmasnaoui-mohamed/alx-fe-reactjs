@@ -10,11 +10,11 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-  "start": "react-scripts start",
-  "build": "react-scripts build",
-  "eject": "react-scripts eject",
-  "test": "jest"
-},
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "eject": "react-scripts eject",
+    "test": "jest"
+  },
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -38,7 +38,7 @@
     "@babel/preset-env": "^7.25.4",
     "@babel/preset-react": "^7.24.7",
     "@testing-library/dom": "^7.31.2",
-    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0"
