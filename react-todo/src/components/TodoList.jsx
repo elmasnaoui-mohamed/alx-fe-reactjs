@@ -7,12 +7,12 @@ const TodoList = () => {
         { id: 2, text: 'Build a Todo App', completed: false }
     ]);
 
-    const addTodo = text => {
+    const addTodo = (text) => {
         const newTodo = { id: Date.now(), text, completed: false };
         setTodos([...todos, newTodo]);
     };
 
-    const toggleTodo = id => {
+    const toggleTodo = (id) => {
         setTodos(
             todos.map(todo =>
                 todo.id === id ? { ...todo, completed: !todo.completed } : todo
@@ -20,7 +20,7 @@ const TodoList = () => {
         );
     };
 
-    const deleteTodo = id => {
+    const deleteTodo = (id) => {
         setTodos(todos.filter(todo => todo.id !== id));
     };
 
@@ -29,7 +29,11 @@ const TodoList = () => {
             <AddTodoForm onAddTodo={addTodo} />
             <ul>
                 {todos.map(todo => (
-                    <li key={todo.id} onClick={() => toggleTodo(todo.id)} style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}>
+                    <li
+                        key={todo.id}
+                        onClick={() => toggleTodo(todo.id)}
+                        style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}
+                    >
                         {todo.text}
                         <button onClick={() => deleteTodo(todo.id)}>Delete</button>
                     </li>

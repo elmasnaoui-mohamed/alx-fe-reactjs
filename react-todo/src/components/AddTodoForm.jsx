@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 const AddTodoForm = ({ onAddTodo }) => {
     const [text, setText] = useState('');
 
-    const handleSubmit = e => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         if (!text.trim()) return;
         onAddTodo(text);
