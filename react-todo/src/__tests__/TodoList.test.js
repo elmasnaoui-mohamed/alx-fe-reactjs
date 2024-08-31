@@ -9,6 +9,7 @@ describe('TodoList Component', () => {
     expect(screen.getByText('Todo List')).toBeInTheDocument();
     expect(screen.getByText('Learn React')).toBeInTheDocument();
     expect(screen.getByText('Build Todo List')).toBeInTheDocument();
+    expect(screen.getByText('Write Tests')).toBeInTheDocument();
   });
 
   test('adds a new todo', () => {
