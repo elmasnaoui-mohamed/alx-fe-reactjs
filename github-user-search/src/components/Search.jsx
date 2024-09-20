@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { fetchAdvancedUserData } from '../services/githubService';
+import { fetchUserData } from '../services/githubService';
 
 const Search = () => {
   const [username, setUsername] = useState('');
@@ -15,24 +15,14 @@ const Search = () => {
     setError('');
     setUsers([]);
 
-    const query = buildSearchQuery(username, location, repos);
-
     try {
-      const response = await fetchAdvancedUserData(query);
-      setUsers(response.items);
+      const response = await fetchUserData(username, location, repos);
+      setUsers(response.data.items);
     } catch (err) {
-      setError("Looks like we cant find any users matching your criteria.");
+      setError("Looks like we can't find any users matching your criteria.");
     } finally {
       setLoading(false);
     }
-  };
-
-  const buildSearchQuery = (username, location, repos) => {
-    let query = '';
-    if (username) query += `user:${username}`;
-    if (location) query += ` location:${location}`;
-    if (repos) query += ` repos:>${repos}`;
-    return query;
   };
 
   return (
