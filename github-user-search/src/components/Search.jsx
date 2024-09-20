@@ -11,13 +11,17 @@ const Search = () => {
     e.preventDefault();
     setLoading(true);
     setError('');
-    setUserData(null);
+    setUserData(null);  
 
     try {
       const response = await fetchUserData(username);
-      setUserData(response.data);
+      if (response.data) {
+        setUserData(response.data);  
+      } else {
+        setError("Looks like we can't find the user.");  
+      }
     } catch (err) {
-      setError("Looks like we can't find the user.");
+      setError("Looks like we can't find the user."); 
     } finally {
       setLoading(false);
     }
@@ -36,11 +40,13 @@ const Search = () => {
       </form>
 
       {loading && <p>Loading...</p>}
+
       {error && <p>{error}</p>}
+
       {userData && (
         <div>
           <img src={userData.avatar_url} alt={userData.login} width="100" />
-          <h2>{userData.name}</h2>
+          <h2>{userData.name || userData.login}</h2>
           <p>
             <a href={userData.html_url} target="_blank" rel="noopener noreferrer">
               Visit GitHub Profile
