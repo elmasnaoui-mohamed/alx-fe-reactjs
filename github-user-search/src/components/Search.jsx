@@ -5,23 +5,29 @@ const Search = () => {
   const [username, setUsername] = useState('');
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState('');
 
   const handleSearch = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError('');
-    setUserData(null);  
+    setUserData(null);
 
     try {
       const response = await fetchUserData(username);
+      console.log(response);
       if (response.data) {
-        setUserData(response.data);  
+        setUserData(response.data);
       } else {
-        setError(true);  
+        setError("Looks like we can't find the user.");
       }
     } catch (err) {
-      setError(true); 
+      if (err.response && err.response.status === 404) {
+        setError("User not found.");
+      } else {
+        setError("An error occurred. Please try again.");
+      }
+      console.error(err);
     } finally {
       setLoading(false);
     }
@@ -40,9 +46,7 @@ const Search = () => {
       </form>
 
       {loading && <p>Loading...</p>}
-
-      {error && `<p>Looks like we can't find the user.</p>`}
-
+      {error && <p>{error}</p>}
       {userData && (
         <div>
           <img src={userData.avatar_url} alt={userData.login} width="100" />
