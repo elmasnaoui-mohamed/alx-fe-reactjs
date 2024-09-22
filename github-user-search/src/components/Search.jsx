@@ -17,8 +17,7 @@ const Search = () => {
 
     try {
       if (location || repos) {
-        const query = buildSearchQuery(username, location, repos);
-        const response = await fetchAdvancedUserData(query);
+        const response = await fetchAdvancedUserData(username, location, repos);
         if (response.data.items.length > 0) {
           setUsers(response.data.items);
         } else {
@@ -37,14 +36,6 @@ const Search = () => {
     } finally {
       setLoading(false);
     }
-  };
-
-  const buildSearchQuery = (username, location, repos) => {
-    let query = '';
-    if (username) query += `user:${username}`;
-    if (location) query += ` location:${location}`;
-    if (repos) query += ` repos:>${repos}`;
-    return query;
   };
 
   return (
