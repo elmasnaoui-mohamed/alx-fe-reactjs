@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { fetchAdvancedUserData } from '../services/githubService';
+import { fetchUserData, fetchAdvancedUserData } from '../services/githubService';
 
 const Search = () => {
   const [username, setUsername] = useState('');
@@ -15,14 +15,22 @@ const Search = () => {
     setError('');
     setUsers([]);
 
-    const query = buildSearchQuery(username, location, repos);
-
     try {
-      const response = await fetchAdvancedUserData(query);
-      if (response.data.items.length > 0) {
-        setUsers(response.data.items);
+      if (location || repos) {
+        const query = buildSearchQuery(username, location, repos);
+        const response = await fetchAdvancedUserData(query);
+        if (response.data.items.length > 0) {
+          setUsers(response.data.items);
+        } else {
+          setError("Looks like we cant find the user");
+        }
       } else {
-        setError("Looks like we cant find the user");
+        const response = await fetchUserData(username);
+        if (response.data) {
+          setUsers([response.data]);
+        } else {
+          setError("Looks like we cant find the user");
+        }
       }
     } catch (err) {
       setError("Looks like we cant find the user");
